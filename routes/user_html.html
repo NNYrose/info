@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>信息管理系统</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        function get(){$.get("./index",
+            function (datas, status) {
+                var rowCount = datas.length;
+                function CreateTable(rowCount , datas) {
+                    var table = $("<table  border=1 cellspacing=0>  ");
+                    table.appendTo($("#info"));
+                    for (var i = 0; i < rowCount; i++) {
+                        var tr = $("<tr></tr>");
+                        tr.appendTo(table);
+                        var td = $("<td>" + (i+1) + "</td>"
+                                +  "<td >" + datas[i]["apply_date"] + "</td>"
+                                +  "<td width=50 align=\"center\">" + datas[i]["name"] + "</td>"
+                                +  "<td>" + datas[i]["tel"] + "</td>"
+                                +  "<td>" + datas[i]["email"] + "</td>"
+                                + "<td><input type=\"button\" id=\"auth\" name=" + datas[i]["id"] + " value=\"批准\" \
+                                    onclick=auth() style= color:green width: 200px;></td>"
+                                + "<td><input type=\"button\" id=\"del\" name=" + datas[i]["id"] + " value=\"拒绝\" \
+                                    onclick=del() style= color:red width: 200px;></td>"
+                        );
+                                //+  "<td>" + datas[i]["start_date"] + "</td>"
+                                //+  "<td>" + datas[i]["end_date"] + "</td>"
+                                //+  "<td>" + datas[i]["reason"] + "</td>");
+                        td.appendTo(tr);
+                    }
+                    tr.appendTo(table);
+                    $("#info").append("</table>");
+                };
+            CreateTable(rowCount,datas);
+            });}
+
+    get();
+    function auth(){
+        $.post("./auth",
+        {
+            auth: 1,
+            id: $("#auth").attr("name"),
+        },
+        function(){
+        $("#info").empty();
+        get(); 
+        }
+        );
+    }
+    function del(){
+        $.post("./auth",
+        {
+            auth: 0,
+            id: $("#auth").attr("name"),
+        },
+        function(){
+            $("#info").empty();
+            get();
+        }
+        );
+    }
+    </script>
+</head>
+
+<body>
+    <p>admain</p>
+    <div>
+    <div id='info'></div>
+    <div>
+</body>
+
+</html>
