@@ -4,14 +4,15 @@ var router = express.Router();
 var bodyParser = require("body-parser");
 var util = require('./../util')
 var urlencodedParser=bodyParser.urlencoded({extended:false});
+var { resolve } = require('path')
 
-
+var path = (filepath) => resolve(__dirname, filepath)
 
 
 /*GET user html*/
-router.get('/user.html', function(req, res) {
+router.get('/apply', function(req, res) {
 
-  res.sendFile(__dirname+"/"+"user.html");
+  res.sendFile(path("./../public/html/apply.html"));
 
 });
 
@@ -41,7 +42,7 @@ router.post('/sub',urlencodedParser,function(req,res,next){
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.sendFile();
 });
 
 module.exports = router;

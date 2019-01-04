@@ -6,6 +6,8 @@ var util = require('./../util')
 
 var urlencodedParser=bodyParser.urlencoded({extended:false});
 
+var { resolve } = require('path')
+var path = (filepath) => resolve(__dirname, filepath)
 /**
  * 
  * 
@@ -24,9 +26,8 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/admain', function(req, res, next){
-  res.sendFile(__dirname + '/'+ 'admain.html')
+  res.sendFile(path("./../public/html/admain.html"))
 })
-
 
 router.post('/admain-log', urlencodedParser, function(req, res, next){
   var admain = req.body.admain
@@ -36,7 +37,7 @@ router.post('/admain-log', urlencodedParser, function(req, res, next){
     // var success={
     //   message: '登录成功'  
     // };
-    res.sendFile(__dirname+'/'+'user_html.html')
+    res.sendFile(path("./../public/html/query.html"))
   }
   else
     res.send({'message': 'password error'});
@@ -48,7 +49,7 @@ module.exports = router;
  * admain 管理界面
  */
 
- router.get('/index', function(req, res, next){
+ router.get('/query', function(req, res, next){
    var mysqlQuery='select * from info where is_auth = 0 and is_del = 0 ';
    db.DBConnection.query(mysqlQuery,function(err,result,fields){
     if(err){
