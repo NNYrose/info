@@ -1,6 +1,6 @@
 
 /**
- * 获取当前的日期时间 格式“yyyy-MM-dd HH:MM:SS”
+ * 获取当前的日期时间 格式“yyyy-MM-dd HH:MM:SS”s
  */
 function getNowFormatDate() {
     var date = new Date();

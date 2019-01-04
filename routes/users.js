@@ -13,7 +13,7 @@ var db_queryall = require("./../query").db_queryall;
 var db_auth = require("./../query").db_auth;
 var db_del = require("./../query").db_del;
 
-
+var loginusers = require("./session").loginusers;
 
 /**
  * 
@@ -35,7 +35,7 @@ router.get('/admain', function(req, res, next){
 })
 
 router.get('/query_index', function(req, res, next){
-  res.sendFile(path("./../public/html/query.html"))
+  res.sendFile(path("./../public/html/query.html"));
 })
 
 
@@ -45,15 +45,14 @@ router.post('/admain-log', urlencodedParser, function(req, res, next){
   var password = req.body.password
   console.log('username is ' + admain + 'passwoed is ' + password);
   if (admain == 'admain' && password == "123456"){
-    // var success={
-    //   message: '登录成功'  
-    // };
+    var session = Math.random().toString(36).substr(2);
+    loginusers('admain') = session;
     res.redirect("./query_index");
   }
   else
     res.send({'message': 'password error'});
 })
-module.exports = router;
+
 
 
 /**
@@ -78,3 +77,5 @@ router.post('/auth', function (req, res, next) {
       res.send("操作失败");
   }
 })
+
+module.exports = router;
