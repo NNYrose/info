@@ -2,16 +2,16 @@ var express = require('express');
 var router = express.Router();
 
 var bodyParser = require("body-parser");
-var util = require('./../util');
-var db = require("./../db");
+var util = require('./../util/util');
+var db = require("./../util/db");
 
 var urlencodedParser=bodyParser.urlencoded({extended:false});
 
 var { resolve } = require('path');
 var path = (filepath) => resolve(__dirname, filepath);
-var db_queryall = require("./../query").db_queryall;
-var db_auth = require("./../query").db_auth;
-var db_del = require("./../query").db_del;
+var db_queryall = require("./../util/query").db_queryall;
+var db_auth = require("./../util/query").db_auth;
+var db_del = require("./../util/query").db_del;
 
 var loginusers = require("./session").loginusers;
 // var loginusers = [];

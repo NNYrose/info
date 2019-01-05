@@ -1,3 +1,3 @@
-const DBNAME = 'sqlite3'; // sqlite3
+const DBNAME = 'sqlite3'; // mysql
 
 module.exports.dbname = DBNAME
